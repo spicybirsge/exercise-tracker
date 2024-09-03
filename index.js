@@ -93,7 +93,15 @@ app.post('/api/users/:_id/exercises', async (req, res) => {
 
   const convertTimeStampToDateAgain = new Date(timeStamp).toDateString()
 
-  return res.json({ _id: userExist._id, username: userExist.username, date: convertTimeStampToDateAgain, duration: duration, description: description })
+  let userobject = {
+    _id: userExist._id, 
+    username: userExist.username,
+    exercise: {
+      date: convertTimeStampToDateAgain, duration: duration, description: description
+    }
+  }
+
+  return res.json( userobject )
 
 })
 
