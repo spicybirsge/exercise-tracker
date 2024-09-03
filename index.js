@@ -128,7 +128,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
       }
       convertedExerciseArray.push(exerciseObject)
     }
-    return res.json({ _id: userId, username: userExist.username, log: convertedExerciseArray })
+    return res.json({ _id: userId, username: userExist.username, count: exercises.length,log: convertedExerciseArray })
   }
 
   if(from && to) {
@@ -151,7 +151,7 @@ if(isNaN(startDate) || isNaN(endDate)) {
       }
       convertedExerciseArray.push(exerciseObject)
     }
-    return res.json({ _id: userId, username: userExist.username, log: convertedExerciseArray })
+    return res.json({ _id: userId, username: userExist.username, log: convertedExerciseArray, count: filteredExercises.length })
   }
 })
 
