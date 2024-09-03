@@ -120,7 +120,7 @@ app.get('/api/users/:_id/logs', async (req, res) => {
 
 
   let exercises = userExist.exercises;
-  if (limit && !from && !to) {
+  if (limit && !from && !to && exercises.length > limit) {
     exercises = exercises.slice(0, limit * 1)
   }
 
@@ -147,7 +147,11 @@ app.get('/api/users/:_id/logs', async (req, res) => {
 if(isNaN(startDate) || isNaN(endDate)) {
   return res.json({error: 'either from or to has an invalid date'})
 }
-    const filteredExercises = exercises.filter(item => item.date >= startDate && item.date <= endDate).slice((0, limit * 1))
+    let filteredExercises = exercises.filter(item => item.date >= startDate && item.date <= endDate)
+
+    if(limit && filteredExercises.length > limit ) {
+      filteredExercises = filteredExercises.slice((0, limit * 1))
+    }
     let convertedExerciseArray = []
     for (const e of filteredExercises) {
       const exerciseObject = {
